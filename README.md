@@ -1,0 +1,29 @@
+# Claude Code Meno Frontend
+
+Next.js monorepo frontend for the Metiscore Health Platform with enhanced security and compliance features.
+
+## Features
+- Menopause wellness tracking app
+- Partner support dashboard
+- Real-time journal sharing
+- Consent management system
+- Multi-jurisdictional compliance (HIPAA/PIPEDA/GDPR)
+
+## Development
+```bash
+pnpm install
+pnpm dev
+```
+
+## Environment Variables
+Create `.env.local` files in each app with:
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+NEXT_PUBLIC_SENTIMENT_API_URL=https://www.sentimentasaservice.com/api/analyze
+```
+

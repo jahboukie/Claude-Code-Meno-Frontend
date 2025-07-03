@@ -1,0 +1,15 @@
+{
+  "name": "@metiscore/ui",
+  "version": "1.0.0",
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "devDependencies": {
+    "@metiscore/types": "workspace:*",
+    "react": "^18.3.1",
+    "typescript": "^5.4.5"
+  }
+}

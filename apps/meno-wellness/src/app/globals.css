@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  /* You can define custom theme values here if needed */
+}
+
+/* Apply the gradient background to the entire page body */
+body {
+  @apply bg-gradient-to-br from-teal-400 to-blue-500;
+}
