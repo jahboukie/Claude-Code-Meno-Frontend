@@ -5,19 +5,16 @@
   "types": "./src/index.tsx",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@metiscore/types": "workspace:*",
-    "firebase": "^11.10.0"
-  },
-  "devDependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "typescript": "^5.4.5"
+    "@metiscore/types": "workspace:*"
   },
   "peerDependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "firebase": "^11.10.0"
   }
 }

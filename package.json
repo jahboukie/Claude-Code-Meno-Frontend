@@ -2,18 +2,37 @@
   "name": "metiscorehealth-ecosystem",
   "version": "1.0.0",
   "private": true,
-  "description": "Monorepo for the MenoWellness and Partner Support applications.",
+  "description": "Monorepo for the MenoWellness and Partner Support applications with shared security and compliance features.",
   "author": "Jeremy Brown",
+  "packageManager": "pnpm@10.12.4",
   "scripts": {
-    "dev": "concurrently \"pnpm:dev:*\"",
+    "dev": "concurrently \"pnpm:dev:*\" --names \"meno,partner\" --prefix-colors \"cyan,magenta\"",
     "dev:meno": "pnpm --filter meno-wellness dev",
-    "dev:partner": "pnpm --filter partner-support dev"
+    "dev:partner": "pnpm --filter partner-support dev",
+    "build": "pnpm --filter \"./apps/*\" build",
+    "build:meno": "pnpm --filter meno-wellness build",
+    "build:partner": "pnpm --filter partner-support build",
+    "lint": "pnpm --filter \"./apps/*\" lint",
+    "typecheck": "pnpm --filter \"./apps/*\" --filter \"./shared/*\" typecheck",
+    "clean": "pnpm --filter \"./apps/*\" --filter \"./shared/*\" clean && rm -rf node_modules",
+    "install:all": "pnpm install"
+  },
+  "dependencies": {
+    "firebase": "^11.10.0",
+    "next": "15.3.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "concurrently": "^9.2.0"
   },
   "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@tailwindcss/postcss": "^4",
+    "@eslint/eslintrc": "^3",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.4",
+    "tailwindcss": "^4",
     "typescript": "^5.4.5"
-  },
-  "packageManager": "pnpm@10.12.4",
-  "dependencies": {
-    "concurrently": "^9.2.0"
   }
 }
