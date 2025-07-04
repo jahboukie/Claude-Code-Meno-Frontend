@@ -1,0 +1,56 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    // Helper functions for security
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    // Users collection - Basic authentication only for development
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+    }
+    
+    // User consent collection - Allow creation and updates for development
+    match /user_consents/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+    }
+    
+    // Journal Entries - Basic security for development
+    match /journal_entries/{entryId} {
+      // Owner can always access their own entries
+      allow read, update, delete: if isAuthenticated() && 
+                                     isOwner(resource.data.userId);
+      
+      // Allow creation for authenticated users
+      allow create: if isAuthenticated() && 
+                       isOwner(request.resource.data.userId);
+    }
+    
+    // Invites collection - Basic security
+    match /invites/{inviteCode} {
+      allow read: if isAuthenticated() && 
+                     resource.data.fromUserId == request.auth.uid;
+      allow create: if isAuthenticated() && 
+                       isOwner(request.resource.data.fromUserId);
+      allow update: if isAuthenticated();
+    }
+    
+    // Audit logs collection - Write-only for compliance
+    match /audit_logs/{logId} {
+      allow create: if isAuthenticated() && 
+                       isOwner(request.resource.data.userId);
+    }
+    
+    // Data retention tracking
+    match /data_retention/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+    }
+  }
+}

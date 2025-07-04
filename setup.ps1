@@ -25,17 +25,21 @@ pnpm install
 Write-Host "Verifying workspace configuration..." -ForegroundColor Yellow
 pnpm list --depth=0
 
-# Create environment files
-Write-Host "Setting up environment configuration..." -ForegroundColor Yellow
+# Check environment files
+Write-Host "Checking environment configuration..." -ForegroundColor Yellow
 
-if (!(Test-Path "apps/meno-wellness/.env.local")) {
+if (Test-Path "apps/meno-wellness/.env.local") {
+    Write-Host "✓ Meno-wellness environment file already configured" -ForegroundColor Green
+} else {
     Copy-Item "apps/meno-wellness/.env.local.example" "apps/meno-wellness/.env.local"
-    Write-Host "✓ Created meno-wellness environment file" -ForegroundColor Green
+    Write-Host "✓ Created meno-wellness environment file from template" -ForegroundColor Green
 }
 
-if (!(Test-Path "apps/partner-support/.env.local")) {
+if (Test-Path "apps/partner-support/.env.local") {
+    Write-Host "✓ Partner-support environment file already configured" -ForegroundColor Green
+} else {
     Copy-Item "apps/partner-support/.env.local.example" "apps/partner-support/.env.local"
-    Write-Host "✓ Created partner-support environment file" -ForegroundColor Green
+    Write-Host "✓ Created partner-support environment file from template" -ForegroundColor Green
 }
 
 Write-Host ""

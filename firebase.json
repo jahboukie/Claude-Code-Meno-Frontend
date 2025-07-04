@@ -1,0 +1,19 @@
+{
+  "firestore": {
+    "rules": "firestore.rules.development"
+  },
+  "hosting": {
+    "public": "apps/meno-wellness/out",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
