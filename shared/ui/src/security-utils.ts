@@ -146,16 +146,31 @@ export class ComplianceUtils {
     resourceType?: string,
     details?: Record<string, any>
   ): Omit<AuditLog, 'id'> {
-    return {
+    // Build audit log object, excluding undefined fields for Firestore compatibility
+    const auditLog: any = {
       userId,
       action,
       timestamp: new Date(),
       ipAddress: '0.0.0.0', // Will be updated by server
       userAgent: navigator.userAgent,
-      resourceId,
-      resourceType,
-      details,
     };
+
+    // Only add resourceId if it's defined
+    if (resourceId !== undefined) {
+      auditLog.resourceId = resourceId;
+    }
+
+    // Only add resourceType if it's defined
+    if (resourceType !== undefined) {
+      auditLog.resourceType = resourceType;
+    }
+
+    // Only add details if it's defined
+    if (details !== undefined) {
+      auditLog.details = details;
+    }
+
+    return auditLog;
   }
 
   // Validate consent requirements

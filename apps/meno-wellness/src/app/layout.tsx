@@ -7,8 +7,8 @@ import { AuthButton } from './components/auth-button'; // We can use our existin
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Metiscore Health",
-  description: "Your personal wellness ecosystem.",
+  title: "MenoWellness - Your Supportive Journey",
+  description: "A warm, supportive space for women navigating menopause with mood tracking, journaling, and partner connection.",
 };
 
 export default function RootLayout({
@@ -18,25 +18,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gradient-to-br from-teal-400 to-blue-500`}>
+      <body className={`${inter.className} bg-gradient-to-br from-red-300 to-green-300 min-h-screen`}>
         <AuthProvider>
-          <nav className="bg-white/30 backdrop-blur-sm shadow-lg sticky top-0 z-40">
+          <nav className="bg-white/20 backdrop-blur-sm shadow-lg sticky top-0 z-40 border-b border-white/20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16">
-                <span className="text-2xl font-bold text-white" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.2)' }}>
-                  Metiscore Health
-                </span>
+                <div className="flex items-center space-x-3">
+                  <div className="text-2xl">🌸</div>
+                  <span className="text-2xl font-bold text-white" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.3)' }}>
+                    MenoWellness
+                  </span>
+                </div>
                 <div className="flex items-center">
-                   {/* The AuthButton will handle showing "Welcome" and "Sign Out" */}
                   <AuthButton />
                 </div>
               </div>
             </div>
           </nav>
           <main>
-            <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-              {children}
-            </div>
+            {children}
           </main>
         </AuthProvider>
       </body>

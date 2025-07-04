@@ -3,8 +3,9 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '../components/auth-provider';
-import { db } from '@/lib/firebase';
+import { db, functions } from '@/lib/firebase';
 import { collection, query, where, onSnapshot, orderBy, doc, getDoc } from 'firebase/firestore';
+import { httpsCallable } from 'firebase/functions';
 import { Button } from '@metiscore/ui';
 
 // Interfaces for our data structures
@@ -94,25 +95,17 @@ export default function PartnerDashboard() {
     setIsConnecting(true);
     setConnectionError('');
 
-    const functionUrl = "https://us-central1-menowellness-prod.cloudfunctions.net/acceptPartnerInvite"; // The secure function URL
-
     try {
-      const response = await fetch(functionUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          inviteCode: connectionCode,
-          partnerUid: user.uid
-        }),
+      // Use Firebase Functions callable method
+      const acceptPartnerInvite = httpsCallable(functions, 'acceptPartnerInvite');
+      const result = await acceptPartnerInvite({
+        inviteCode: connectionCode,
+        partnerUid: user.uid
       });
 
-      const result = await response.json();
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to accept invite.');
-      }
-      
       // Success! The onSnapshot listener will handle the UI update automatically.
       setConnectionCode('');
+      console.log('Connection successful:', result.data);
 
     } catch (err: any) {
       console.error('Connection error:', err);

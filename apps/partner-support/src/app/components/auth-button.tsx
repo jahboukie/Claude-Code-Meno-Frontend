@@ -4,10 +4,12 @@
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useAuth } from './auth-provider';
+import { useRouter } from 'next/navigation';
 import { Button } from '@metiscore/ui'; // Using our shared button
 
 export function AuthButton() {
   const { user } = useAuth();
+  const router = useRouter();
 
   const handleSignIn = async () => {
     const provider = new GoogleAuthProvider();
@@ -21,6 +23,7 @@ export function AuthButton() {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      router.push('/'); // Redirect to login page after sign out
     } catch (error) {
       console.error("Error signing out", error);
     }

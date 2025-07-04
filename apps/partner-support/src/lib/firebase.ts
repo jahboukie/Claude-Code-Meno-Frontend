@@ -2,6 +2,7 @@
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getFunctions } from "firebase/functions";
 
 // IMPORTANT: Use the same Firebase config as your meno-wellness app
 // These environment variables should be defined in a .env.local file
@@ -23,9 +24,10 @@ const appName = "partner-support";
 // It checks if an app with the given name already exists to prevent duplicate initialization.
 const app = getApps().find((existingApp: { name: string; }) => existingApp.name === appName) || initializeApp(firebaseConfig, appName);
 
-// Get the authentication and Firestore service instances from the initialized app.
+// Get the authentication, Firestore, and Functions service instances from the initialized app.
 const auth = getAuth(app);
 const db = getFirestore(app);
+const functions = getFunctions(app, 'us-central1');
 
-// Export the initialized app, auth, and db instances for use throughout the application.
-export { app, auth, db };
+// Export the initialized app, auth, db, and functions instances for use throughout the application.
+export { app, auth, db, functions };
