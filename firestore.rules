@@ -1,0 +1,46 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+    }
+
+    match /user_consents/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+    }
+
+    // The Corrected Journal Entries Rule
+    match /journal_entries/{entryId} {
+      allow create, update, delete: if isAuthenticated() && isOwner(request.resource.data.userId);
+
+      allow read: if isAuthenticated() &&
+        (
+          isOwner(resource.data.userId) ||
+          (
+            resource.data.isShared == true &&
+            get(/databases/$(database)/documents/users/$(request.auth.uid)).data.partnerId == resource.data.userId
+          )
+        );
+    }
+
+    match /invites/{inviteCode} {
+      allow read, create: if isAuthenticated() && isOwner(request.resource.data.fromUserId);
+      allow update: if isAuthenticated();
+    }
+
+    match /audit_logs/{logId} {
+      allow create: if isAuthenticated();
+      allow read, update, delete: if false;
+    }
+  }
+}

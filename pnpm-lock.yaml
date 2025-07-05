@@ -52,7 +52,7 @@ importers:
         specifier: ^5.4.5
         version: 5.8.3
 
-  apps/meno-wellness:
+  packages/apps/meno-wellness:
     dependencies:
       '@metiscore/types':
         specifier: workspace:*
@@ -61,7 +61,7 @@ importers:
         specifier: workspace:*
         version: link:../../shared/ui
 
-  apps/partner-support:
+  packages/apps/partner-support:
     dependencies:
       '@metiscore/types':
         specifier: workspace:*
@@ -70,7 +70,7 @@ importers:
         specifier: workspace:*
         version: link:../../shared/ui
 
-  functions:
+  packages/functions:
     dependencies:
       '@metiscore/types':
         specifier: workspace:*
@@ -86,9 +86,9 @@ importers:
         specifier: ^5.4.5
         version: 5.8.3
 
-  shared/types: {}
+  packages/shared/types: {}
 
-  shared/ui:
+  packages/shared/ui:
     dependencies:
       '@metiscore/types':
         specifier: workspace:*

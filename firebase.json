@@ -1,9 +1,25 @@
 {
   "firestore": {
-    "rules": "firestore.rules.development"
+    "database": "(default)",
+    "location": "northamerica-northeast2",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   },
+  "functions": [
+    {
+      "source": "packages/functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "runtime": "nodejs22"
+    }
+  ],
   "hosting": {
-    "public": "apps/meno-wellness/out",
+    "public": "packages/apps/meno-wellness/out",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -21,7 +37,7 @@
         "headers": [
           {
             "key": "Cross-Origin-Opener-Policy",
-            "value": "unsafe-none"
+            "value": "same-origin-allow-popups"
           }
         ]
       }
